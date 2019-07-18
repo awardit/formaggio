@@ -14,15 +14,6 @@ import {
 } from "react";
 import { get, set } from "diskho";
 
-export type FormProps = ElementProps<"form"> & {
-  errors?: Array<ValidationError>,
-  name?: string,
-  onChange: (data: FormData) => mixed,
-  onError: (e: Event, errors: Array<ValidationError>, data: FormData) => mixed,
-  onSubmit: (e: Event, data: FormData) => mixed,
-  value: FormData,
-};
-
 export type FormDataValue = boolean | string | number | FormData;
 
 export type FormData = { [key: string]: FormDataValue };
@@ -34,13 +25,18 @@ export type FormContextData = {
   errors: Array<ValidationError>,
   idPrefix: string,
   update: UpdateFn
-}
+};
+
+export type FormProps = ElementProps<"form"> & {
+  errors?: Array<ValidationError>,
+  name?: string,
+  onChange: (data: FormData) => mixed,
+  onError: (e: Event, errors: Array<ValidationError>, data: FormData) => mixed,
+  onSubmit: (e: Event, data: FormData) => mixed,
+  value: FormData,
+};
 
 export const FormContext: Context<?FormContextData> = createContext();
-
-function findErrors(errors: Array<ValidationError>, name: string): Array<ValidationError> {
-  return errors;
-}
 
 /**
  * Fetches data, metadata, and callback, for a form field.
