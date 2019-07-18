@@ -58,8 +58,9 @@ export function useFormField(name: string, def?: mixed) {
 
   const { data, errors: formErrors, idPrefix, update } = formData;
   const value = get(data, name, def);
+  // Save the first render value in a ref so we can keep comparing it
   const original = useRef(value);
-  const dirty = data !== original;
+  const dirty = value !== original.current;
   const errors: Array<ValidationError> = formErrors.filter(({ field }) => field === name);
   const id = idPrefix ? idPrefix  + "." + name : name;
   const onChange = useCallback(
