@@ -64,7 +64,7 @@ export function useFormField(name: string, def?: mixed) {
   const id = idPrefix ? idPrefix  + "." + name : name;
   const onChange = useCallback(
     ({ target }: SyntheticInputEvent<HTMLInputElement>) => {
-      update(name, target.type === "checkbox" ? target.checked : target.value),
+      update(name, target.type === "checkbox" ? target.checked : target.value);
     },
     [name, update]
   );
