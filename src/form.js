@@ -14,10 +14,6 @@ import {
 } from "react";
 import { get, set } from "diskho";
 
-export type FieldProps = {
-
-};
-
 export type FormProps = ElementProps<"form"> & {
   errors?: Array<ValidationError>,
   name?: string,
@@ -46,6 +42,13 @@ function findErrors(errors: Array<ValidationError>, name: string): Array<Validat
   return errors;
 }
 
+/**
+ * Fetches data, metadata, and callback, for a form field.
+ *
+ * NOTE: The first value encountered when rendering will be considered its
+ *       original value, the component instance has to be re-rendered with
+ *       a new key to consider it being a new non-dirty instance.
+ */
 export function useFormField(name: string, def?: mixed) {
   const formData = useContext(FormContext);
 
@@ -60,8 +63,11 @@ export function useFormField(name: string, def?: mixed) {
   const errors: Array<ValidationError> = formErrors.filter(({ field }) => field === name);
   const id = idPrefix ? idPrefix  + "." + name : name;
   const onChange = useCallback(
-    ({ target }: SyntheticInputEvent<HTMLInputElement>) => update(name, target.type === "checkbox" ? target.checked : target.value),
-    [name, update]);
+    ({ target }: SyntheticInputEvent<HTMLInputElement>) => {
+      update(name, target.type === "checkbox" ? target.checked : target.value),
+    },
+    [name, update]
+  );
 
   return {
     id,
@@ -74,7 +80,16 @@ export function useFormField(name: string, def?: mixed) {
 }
 
 export function Form(props: FormProps) {
-  const { children, errors, name, onChange, onError, onSubmit, value, ...formProps } = props;
+  const {
+    children,
+    errors,
+    name,
+    onChange,
+    onError,
+    onSubmit,
+    value,
+    ...formProps
+  } = props;
 
   function createFormContextData(): FormContextData {
     return {
@@ -91,8 +106,10 @@ export function Form(props: FormProps) {
     };
   }
 
+  // Only change the form context when the data/errors change
   const [state, setState] = useState(createFormContextData);
 
+  // Make sure to update the nested data when things change
   useEffect(() => setState(createFormContextData), [name, errors, onChange, value]);
 
   const handleSubmit = useCallback((e: Event) => {
@@ -100,9 +117,7 @@ export function Form(props: FormProps) {
       e.preventDefault();
       e.stopPropagation();
 
-      if(onError) {
-        onError(e, errors, value);
-      }
+      onError(e, errors, value);
 
       return false;
     }
