@@ -1,0 +1,39 @@
+{
+  "name": "@crossroads/formaggio",
+  "version": "0.0.1",
+  "description": "The cheesy form library",
+  "main": "dist/index.esm.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "7.5.5",
+    "@babel/plugin-syntax-flow": "7.2.0",
+    "@babel/plugin-transform-flow-strip-types": "7.4.4",
+    "@babel/preset-env": "7.5.5",
+    "@babel/preset-react": "7.0.0",
+    "ava": "2.2.0",
+    "cross-env": "5.2.0",
+    "diskho": "0.2.15",
+    "flow-bin": "0.102.0",
+    "npm-run-all": "4.1.5",
+    "rollup": "1.17.0",
+    "rollup-plugin-babel": "4.3.3"
+  },
+  "peerDependency": {
+    "react": "*",
+    "diskho": "*"
+  },
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "test": "flow status"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@groot.crossroads.se:node_modules/formaggio.git"
+  },
+  "keywords": [
+    "form",
+    "react"
+  ],
+  "author": "Martin Wernstål <m4rw3r@gmail.com>",
+  "license": "ISC"
+}
