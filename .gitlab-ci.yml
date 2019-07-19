@@ -3,8 +3,6 @@ stages:
 
 test:
   stage: test
-  tags:
-    - docker
   image: node:8
   script:
     - npm install
