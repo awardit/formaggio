@@ -11,12 +11,20 @@
     "@babel/preset-env": "7.5.5",
     "@babel/preset-react": "7.0.0",
     "ava": "2.2.0",
+    "babel-eslint": "10.0.2",
     "cross-env": "5.2.0",
     "diskho": "0.2.15",
+    "eslint-config-xo-flow": "0.1.0",
+    "eslint-config-xo-react": "0.20.0",
+    "eslint-plugin-flowtype": "3.12.1",
+    "eslint-plugin-react": "7.14.2",
+    "eslint-plugin-react-hooks": "1.6.1",
     "flow-bin": "0.102.0",
     "npm-run-all": "4.1.5",
+    "react": "16.8.6",
     "rollup": "1.17.0",
-    "rollup-plugin-babel": "4.3.3"
+    "rollup-plugin-babel": "4.3.3",
+    "xo": "0.24.0"
   },
   "peerDependency": {
     "react": "*",
@@ -30,7 +38,9 @@
     "distclean": "rm -rf package-lock.json node_modules dist",
     "flow": "flow check",
     "prepack": "npm run clean && npm run test && npm run build",
-    "test": "flow status"
+    "test": "npm-run-all test:*",
+    "test:flow": "flow status",
+    "test:xo": "xo"
   },
   "repository": {
     "type": "git",
@@ -41,5 +51,145 @@
     "react"
   ],
   "author": "Martin Wernstål <m4rw3r@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "xo": {
+    "extends": [
+      "xo-flow",
+      "xo-react"
+    ],
+    "ignores": [
+      "dist",
+      "**/rollup.config.js"
+    ],
+    "envs": [
+      "node",
+      "browser"
+    ],
+    "overrides": [
+      {
+        "files": "src/flowstub.js",
+        "rules": {
+          "import/no-useless-path-segments": "off"
+        }
+      }
+    ],
+    "rules": {
+      "brace-style": [
+        "error",
+        "stroustrup"
+      ],
+      "comma-dangle": [
+        "error",
+        {
+          "arrays": "only-multiline",
+          "objects": "only-multiline",
+          "imports": "only-multiline",
+          "exports": "only-multiline",
+          "functions": "never"
+        }
+      ],
+      "flowtype/array-style-complex-type": [
+        "error",
+        "verbose"
+      ],
+      "flowtype/array-style-simple-type": [
+        "error",
+        "verbose"
+      ],
+      "flowtype/delimiter-dangle": [
+        "error",
+        "only-multiline"
+      ],
+      "flowtype/newline-after-flow-annotation": [
+        "error",
+        "always"
+      ],
+      "flowtype/require-types-at-top": "warn",
+      "flowtype/require-valid-file-annotation": [
+        "error",
+        "always",
+        {
+          "annotationStyle": "block"
+        }
+      ],
+      "flowtype/require-return-type": [
+        "error",
+        "always",
+        {
+          "annotateUndefined": "always"
+        }
+      ],
+      "flowtype/type-import-style": [
+        "error",
+        "declaration"
+      ],
+      "import/no-unassigned-import": [
+        "error",
+        {
+          "allow": [
+            "**/*.css",
+            "**/*.scss"
+          ]
+        }
+      ],
+      "import/no-unresolved": "off",
+      "import/order": "off",
+      "indent": [
+        "error",
+        2,
+        {
+          "SwitchCase": 0
+        }
+      ],
+      "lines-between-class-members": [
+        "error",
+        "always",
+        {
+          "exceptAfterSingleLine": true
+        }
+      ],
+      "max-len": [
+        "error",
+        {
+          "code": 100,
+          "comments": 80
+        }
+      ],
+      "no-case-declarations": "off",
+      "no-unused-vars": [
+        "error",
+        {
+          "varsIgnorePattern": "^React$"
+        }
+      ],
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "quotes": [
+        "error",
+        "double",
+        {
+          "allowTemplateLiterals": true
+        }
+      ],
+      "react/jsx-tag-spacing": [
+        "error",
+        {
+          "closingSlash": "never",
+          "beforeSelfClosing": "always",
+          "afterOpening": "never",
+          "beforeClosing": "never"
+        }
+      ],
+      "unicorn/catch-error-name": [
+        "error",
+        {
+          "name": "e"
+        }
+      ],
+      "valid-jsdoc": "off"
+    },
+    "space": 2
+  }
 }

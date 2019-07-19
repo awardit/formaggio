@@ -1,11 +1,10 @@
-/* @flow @jsx createElement */
+/* @flow */
 
-import type { Context, ElementProps } from "react";
+import type { Context, ElementProps, Node } from "react";
 import type { ValidationError } from "./validation";
 
-import {
+import React, {
   createContext,
-  createElement,
   useCallback,
   useContext,
   useEffect,
@@ -14,9 +13,7 @@ import {
 } from "react";
 import { get, set } from "diskho";
 
-export type FormDataValue = boolean | string | number | FormData;
-
-export type FormData = { [key: string]: FormDataValue };
+import type { FormDataValue, FormData } from "./types";
 
 export type UpdateFn = (name: string, value: FormDataValue) => void;
 
@@ -36,6 +33,15 @@ export type FormProps = ElementProps<"form"> & {
   value: FormData,
 };
 
+export type FormFieldData = {
+  id: string,
+  dirty: boolean,
+  errors: Array<ValidationError>,
+  name: string,
+  onChange: (e: SyntheticInputEvent<HTMLInputElement>) => void,
+  value: FormDataValue,
+};
+
 export const FormContext: Context<?FormContextData> = createContext();
 
 /**
@@ -45,10 +51,10 @@ export const FormContext: Context<?FormContextData> = createContext();
  *       original value, the component instance has to be re-rendered with
  *       a new key to consider it being a new non-dirty instance.
  */
-export function useFormField(name: string, def?: mixed) {
+export function useFormField(name: string, def?: mixed): FormFieldData {
   const formData = useContext(FormContext);
 
-  if( ! formData) {
+  if (!formData) {
     throw new Error("useFormField() can only be used inside a <Form />.");
   }
 
@@ -57,12 +63,11 @@ export function useFormField(name: string, def?: mixed) {
   // Save the first render value in a ref so we can keep comparing it
   const original = useRef(value);
   const dirty = value !== original.current;
-  const errors: Array<ValidationError> = formErrors.filter(({ field }) => field === name);
-  const id = idPrefix ? idPrefix  + "." + name : name;
+  const errors = formErrors.filter(({ field }: ValidationError): boolean => field === name);
+  const id = idPrefix ? idPrefix + "." + name : name;
   const onChange = useCallback(
-    ({ target }: SyntheticInputEvent<HTMLInputElement>) => {
-      update(name, target.type === "checkbox" ? target.checked : target.value);
-    },
+    ({ target }: SyntheticInputEvent<HTMLInputElement>): void =>
+      update(name, target.type === "checkbox" ? target.checked : target.value),
     [name, update]
   );
 
@@ -76,7 +81,27 @@ export function useFormField(name: string, def?: mixed) {
   };
 }
 
-export function Form(props: FormProps) {
+function createFormContextData(
+  name: string,
+  errors: Array<ValidationError>,
+  onChange: (data: FormData) => mixed,
+  value: FormData
+): FormContextData {
+  return {
+    data: value,
+    errors: errors || [],
+    idPrefix: name,
+    update: (name: string, newItemValue: FormDataValue): void => {
+      const newValue = set(value, name, newItemValue);
+
+      if (newValue !== value) {
+        onChange(newValue);
+      }
+    },
+  };
+}
+
+export function Form(props: FormProps): Node {
   const {
     children,
     errors,
@@ -88,29 +113,19 @@ export function Form(props: FormProps) {
     ...formProps
   } = props;
 
-  function createFormContextData(): FormContextData {
-    return {
-      data: value,
-      errors: errors || [],
-      idPrefix: name,
-      update: (name: string, newItemValue: FormDataValue) => {
-        const newValue = set(value, name, newItemValue);
-
-        if(newValue !== value) {
-          onChange(newValue);
-        }
-      },
-    };
-  }
-
   // Only change the form context when the data/errors change
-  const [state, setState] = useState(createFormContextData);
+  const [state, setState] = useState(
+    (): FormContextData => createFormContextData(name, errors, onChange, value)
+  );
 
   // Make sure to update the nested data when things change
-  useEffect(() => setState(createFormContextData), [name, errors, onChange, value]);
+  useEffect(
+    (): void => setState(createFormContextData(name, errors, onChange, value)),
+    [name, errors, onChange, value]
+  );
 
-  const handleSubmit = useCallback((e: Event) => {
-    if(errors && errors.length) {
+  const handleSubmit = useCallback((e: Event): ?boolean => {
+    if (errors && errors.length > 0) {
       e.preventDefault();
       e.stopPropagation();
 
@@ -122,13 +137,15 @@ export function Form(props: FormProps) {
     onSubmit(e, value);
   }, [errors, onError, onSubmit, value]);
 
-  return <form
-    {...formProps}
-    novalidate
-    onSubmit={handleSubmit}
-  >
-    <FormContext.Provider value={state}>
-      {children}
-    </FormContext.Provider>
-  </form>
+  return (
+    <form
+      {...formProps}
+      noValidate
+      onSubmit={handleSubmit}
+    >
+      <FormContext.Provider value={state}>
+        {children}
+      </FormContext.Provider>
+    </form>
+  );
 }
