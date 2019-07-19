@@ -23,7 +23,13 @@
     "diskho": "*"
   },
   "scripts": {
-    "build": "rollup -c rollup.config.js",
+    "build": "npm-run-all build:*",
+    "build:rollup": "rollup -c rollup.config.js",
+    "build:flow": "cp src/flowstub.js dist/index.esm.js.flow",
+    "clean": "rm -rf dist",
+    "distclean": "rm -rf package-lock.json node_modules dist",
+    "flow": "flow check",
+    "prepack": "npm run clean && npm run test && npm run build",
     "test": "flow status"
   },
   "repository": {
