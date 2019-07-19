@@ -1,0 +1,15 @@
+stages:
+  - test
+
+test:
+  stage: test
+  tags:
+    - docker
+  image: node:8
+  script:
+    - npm install
+    - npm run test
+  cache:
+    paths:
+      - node_modules
+    key: "$CI_COMMIT_REF_NAME"
