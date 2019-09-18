@@ -10,6 +10,8 @@
     "@babel/plugin-transform-flow-strip-types": "7.4.4",
     "@babel/preset-env": "7.5.5",
     "@babel/preset-react": "7.0.0",
+    "@babel/register": "^7.6.0",
+    "@testing-library/react": "9.1.4",
     "ava": "2.2.0",
     "babel-eslint": "10.0.2",
     "cross-env": "5.2.0",
@@ -20,8 +22,15 @@
     "eslint-plugin-react": "7.14.2",
     "eslint-plugin-react-hooks": "1.6.1",
     "flow-bin": "0.102.0",
+    "jsdom": "^15.1.1",
+    "jsdom-global": "3.0.2",
+    "jslint": "0.12.1",
+    "ninos": "3.0.0",
+    "nodemon": "^1.19.2",
     "npm-run-all": "4.1.5",
-    "react": "16.8.6",
+    "nyc": "14.1.1",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
     "rollup": "1.17.0",
     "rollup-plugin-babel": "4.3.3",
     "xo": "0.24.0"
@@ -34,13 +43,16 @@
     "build": "npm-run-all build:*",
     "build:rollup": "rollup -c rollup.config.js",
     "build:flow": "cp src/flowstub.js dist/index.esm.js.flow",
+    "coverage": "nyc --reporter=html ava --verbose",
     "clean": "rm -rf dist",
     "distclean": "rm -rf package-lock.json node_modules dist",
     "flow": "flow check",
     "prepack": "npm run clean && npm run test && npm run build",
     "test": "npm-run-all test:*",
     "test:flow": "flow status",
-    "test:xo": "xo"
+    "test:ava": "ava --verbose",
+    "test:xo": "xo",
+    "watch": "nodemon -w src -w test --exec \"npm run -q test || true\""
   },
   "repository": {
     "type": "git",
@@ -52,6 +64,49 @@
   ],
   "author": "Martin Wernstål <m4rw3r@gmail.com>",
   "license": "ISC",
+  "ava": {
+    "babel": {
+      "testOptions": {
+        "presets": [
+          [
+            "@babel/preset-react"
+          ],
+          [
+            "@babel/preset-env",
+            {
+              "loose": true,
+              "shippedProposals": true,
+              "targets": {
+                "node": "current",
+                "firefox": "50",
+                "ie": "11"
+              },
+              "exclude": [
+                "transform-typeof-symbol"
+              ]
+            }
+          ]
+        ],
+        "plugins": [
+          [
+            "@babel/plugin-transform-flow-strip-types"
+          ]
+        ]
+      }
+    },
+    "files": [
+      "**/*.test.js"
+    ],
+    "sources": [
+      "src/**/*.js",
+      "**/src/**/*.js"
+    ],
+    "require": [
+      "./test/_register",
+      "jsdom-global/register"
+    ],
+    "powerAssert": true
+  },
   "xo": {
     "extends": [
       "xo-flow",
@@ -70,6 +125,24 @@
         "files": "src/flowstub.js",
         "rules": {
           "import/no-useless-path-segments": "off"
+        }
+      },
+      {
+        "files": "test/*.js",
+        "rules": {
+          "ava/use-test": "off",
+          "flowtype/require-parameter-type": "off",
+          "flowtype/require-return-type": "off",
+          "flowtype/no-unused-expressions": "off",
+          "no-unused-expressions": "off",
+          "quote-props": "off",
+          "max-len": [
+            "warn",
+            140,
+            {
+              "ignoreStrings": true
+            }
+          ]
         }
       }
     ],
