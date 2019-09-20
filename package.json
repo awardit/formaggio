@@ -6,6 +6,7 @@
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.5.5",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.4.4",
     "@babel/plugin-syntax-flow": "7.2.0",
     "@babel/plugin-transform-flow-strip-types": "7.4.4",
     "@babel/preset-env": "7.5.5",
@@ -15,7 +16,6 @@
     "ava": "2.2.0",
     "babel-eslint": "10.0.2",
     "cross-env": "5.2.0",
-    "diskho": "0.2.15",
     "eslint-config-xo-flow": "0.1.0",
     "eslint-config-xo-react": "0.20.0",
     "eslint-plugin-flowtype": "3.12.1",
@@ -37,12 +37,11 @@
   },
   "peerDependency": {
     "react": "*",
-    "diskho": "*"
   },
   "scripts": {
     "build": "npm-run-all build:*",
     "build:rollup": "rollup -c rollup.config.js",
-    "build:flow": "cp src/flowstub.js dist/index.esm.js.flow",
+    "build:flow": "cp build/flowstub.js dist/index.esm.js.flow",
     "coverage": "nyc --reporter=html ava --verbose",
     "clean": "rm -rf dist",
     "distclean": "rm -rf package-lock.json node_modules dist",
@@ -62,7 +61,10 @@
     "form",
     "react"
   ],
-  "author": "Martin Wernstål <m4rw3r@gmail.com>",
+  "authors": [
+    "Martin Wernstål <m4rw3r@gmail.com>",
+    "Peter Asplund"
+  ],
   "license": "ISC",
   "ava": {
     "babel": {

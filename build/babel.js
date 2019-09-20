@@ -25,5 +25,6 @@ module.exports = {
   plugins: [
     "@babel/plugin-syntax-flow",
     "@babel/plugin-transform-flow-strip-types",
+    "@babel/plugin-proposal-nullish-coalescing-operator",
   ],
 };

@@ -2,6 +2,7 @@
 
 import type { Context, ElementProps, Node } from "react";
 import type { ValidationError } from "./validation";
+import type { FormDataValue, FormData } from "./types";
 
 import React, {
   createContext,
@@ -11,9 +12,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { get, set } from "diskho";
-
-import type { FormDataValue, FormData } from "./types";
+import { get, set } from "./util";
 
 export type UpdateFn = (name: string, value: FormDataValue) => void;
 
@@ -68,7 +67,7 @@ export function useFormField(name: string, def: FormDataValue = ""): FormFieldDa
   }
 
   const { data, errors: formErrors, idPrefix, update, submitted } = formData;
-  const value = get(data, name, def);
+  const value = String(get(data, name, def) ?? "");
   // Save the first render value in a ref so we can keep comparing it
   const original = useRef(value);
   const dirty = value !== original.current;
