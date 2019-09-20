@@ -65,7 +65,7 @@
     "Martin Wernstål <m4rw3r@gmail.com>",
     "Peter Asplund"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "ava": {
     "babel": {
       "testOptions": {
