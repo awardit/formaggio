@@ -8,6 +8,11 @@ export default {
       sourcemap: true,
       format: "esm",
     },
+    {
+      file: "dist/index.js",
+      sourcemap: true,
+      format: "cjs",
+    },
   ],
   plugins: [
     babelPlugin(require("./build/babel")),

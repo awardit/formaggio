@@ -1,8 +1,37 @@
 {
-  "name": "@crossroads/formaggio",
+  "name": "@crossroads-loyalty-solutions/formaggio",
   "version": "0.1.0",
   "description": "The cheesy form library",
+  "keywords": [
+    "form",
+    "react"
+  ],
+  "authors": [
+    "Martin Wernstål <m4rw3r@gmail.com>",
+    "Peter Asplund"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:crossroads-loyalty-solutions/formaggio.git"
+  },
+  "module": "dist/index.esm.js",
   "main": "dist/index.esm.js",
+  "scripts": {
+    "build": "npm-run-all build:*",
+    "build:rollup": "rollup -c rollup.config.js",
+    "build:flow": "cp build/flowstub.js dist/index.esm.js.flow && cp build/flowstub.js dist/index.js.flow",
+    "coverage": "nyc --reporter=html ava --verbose",
+    "clean": "rm -rf dist",
+    "distclean": "rm -rf package-lock.json node_modules dist",
+    "flow": "flow check",
+    "prepack": "npm run clean && npm run test && npm run build",
+    "test": "npm-run-all test:*",
+    "test:flow": "flow status",
+    "test:ava": "ava --verbose",
+    "test:xo": "xo",
+    "watch": "nodemon -w src -w test --exec \"npm run -q test || true\""
+  },
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.5.5",
@@ -38,34 +67,9 @@
   "peerDependency": {
     "react": "*"
   },
-  "scripts": {
-    "build": "npm-run-all build:*",
-    "build:rollup": "rollup -c rollup.config.js",
-    "build:flow": "cp build/flowstub.js dist/index.esm.js.flow",
-    "coverage": "nyc --reporter=html ava --verbose",
-    "clean": "rm -rf dist",
-    "distclean": "rm -rf package-lock.json node_modules dist",
-    "flow": "flow check",
-    "prepack": "npm run clean && npm run test && npm run build",
-    "test": "npm-run-all test:*",
-    "test:flow": "flow status",
-    "test:ava": "ava --verbose",
-    "test:xo": "xo",
-    "watch": "nodemon -w src -w test --exec \"npm run -q test || true\""
+  "publishConfig": {
+    "access": "public"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@groot.crossroads.se:node_modules/formaggio.git"
-  },
-  "keywords": [
-    "form",
-    "react"
-  ],
-  "authors": [
-    "Martin Wernstål <m4rw3r@gmail.com>",
-    "Peter Asplund"
-  ],
-  "license": "MIT",
   "ava": {
     "babel": {
       "testOptions": {
