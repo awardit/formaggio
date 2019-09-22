@@ -94,28 +94,29 @@ Any properties not listed above will be propagated to the `<form />` element.
 To properly handle validation and `onChange` events in nested `<input />`
 elements it is recommended to set the property `noValidate` on `<Form />`.
 
-## Validation rules
+## Validation
 
-Validation rules are created in a declarative manner using rule constructors
-and rule combinators.
+Validation is done using functions which take a value to validate and return
+a list of errors. The validation functions are created using rule-constructors
+or combinators.
 
-A basic validator has the following type, where `S` is the type to be validated:
-
-```javascript
-type Validator<S> = (s: S) => Array<ValidationError>;
-```
-
-### Examples
+### Example
 
 ```javascript
+import {
+  conditional,
+  isEmail,
+  lengthGt,
+  required,
+  rules,
+} from "@crossroads-loyalty-solutions/formaggio";
+
 const validator = rules([
   isEmail("email"),
   required("firstname"), 
   required("lastname"),
   conditional(s => s.password, lengthGt("password", 6)),
 ]);
-
-// ...
 
 const data = {
   firstname: "foo",
@@ -127,3 +128,26 @@ const errors = validator(data);
 
 console.log(errors); // [{ error: "EMAIL", field: "email" }]
 ```
+
+### Rules
+
+Validation rules are constructed in a declarative manner using rule constructors
+and rule combinators.
+
+A basic validator has the following type, where `T` is the type to be validated:
+
+```javascript
+type Validator<T> = (t: T) => Array<ValidationError>;
+```
+
+### Errors
+
+Errors are objects containing an error code and a field path. The field path is
+preserved through combinators and is used to determine which field caused the
+specific error. Additional properties are allowed but are error-specific.
+
+```javascript
+type ValidationError = {
+  error: string,
+  field: string,
+};
