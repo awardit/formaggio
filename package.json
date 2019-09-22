@@ -17,6 +17,7 @@
   },
   "module": "dist/index.esm.js",
   "main": "dist/index.esm.js",
+  "sideEffects": false,
   "scripts": {
     "build": "npm-run-all build:*",
     "build:rollup": "rollup -c rollup.config.js",
