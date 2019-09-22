@@ -1,5 +1,28 @@
 /* @flow */
 
+import type { ValidationError } from "./validation";
+
+const errorEqual = (a: ValidationError, b: ValidationError): boolean =>
+  a.error === b.error && a.field === b.field;
+
+export const errorsEqual = (a: ?Array<ValidationError>, b: ?Array<ValidationError>): boolean => {
+  if (!a && !b) {
+    return true;
+  }
+
+  if (!a || !b) {
+    return false;
+  }
+
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  return a.every((ai: ValidationError): boolean =>
+    b.some((bi: ValidationError): boolean =>
+      errorEqual(ai, bi)));
+};
+
 /**
  * Indexing operator.
  */

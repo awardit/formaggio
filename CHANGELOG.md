@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added a minimum version reqiurement on `react` dependency.
 ### Removed
 * **BREAKING CHANGE:** Removed `POSTAL_CODE`, `EMAIL` and `PHONE` exports.
+### Fixed
+* Fixed unnecessary rerenders caused by `Form` using identity comparison for
+  `errors` to update the interal context value, instead a shallow error
+  comparison is used.
 
 ## [0.1.0] - 2019-09-20
 ### Added

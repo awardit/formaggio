@@ -12,7 +12,11 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { get, set } from "./util";
+import {
+  errorsEqual,
+  get,
+  set,
+} from "./util";
 
 export type UpdateFn = (name: string, value: FormDataValue) => void;
 
@@ -106,12 +110,20 @@ export const Form = (props: FormProps): Node => {
 
   // If we have tried to submit the form
   const [submitted, setSubmitted] = useState(false);
+  const prevErrors = useRef(errors);
+
+  // Update errors if they are not equal
+  if (!errorsEqual(prevErrors.current, errors)) {
+    prevErrors.current = errors;
+  }
+
+  const stateErrors = prevErrors.current;
 
   // Only change the form context when the data/errors change
   const state = useMemo(
     (): FormContextData => ({
       data: value,
-      errors: errors || [],
+      errors: stateErrors || [],
       idPrefix: name,
       update: (name: string, newItemValue: FormDataValue): void => {
         const newValue = set(value, name, newItemValue);
@@ -122,7 +134,7 @@ export const Form = (props: FormProps): Node => {
       },
       submitted,
     }),
-    [name, errors, onChange, value, submitted]
+    [name, stateErrors, onChange, value, submitted]
   );
 
   const handleSubmit = useCallback((e: Event): ?boolean => {

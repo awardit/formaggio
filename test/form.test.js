@@ -3,8 +3,8 @@
 import ava from "ava";
 import ninos from "ninos";
 import { cleanup, render, fireEvent } from "@testing-library/react";
-import React from "react";
-import { Form, useFormField } from "../src";
+import React, { useContext } from "react";
+import { Form, FormContext, useFormField } from "../src";
 
 // We need to make sure we cleanup after each test, so serial
 const test = ninos(ava).serial;
@@ -197,4 +197,77 @@ test("Should get errors when validation fails", t => {
 
 test("Should throw when useFormField() is used outside <Form />", t => {
   t.throws(() => render(<Field name="foo" />), { message: "useFormField() can only be used inside a <Form />." });
+});
+
+test("Should not rerender when errors are not actually updated", t => {
+  // React.memo to ensure we do not rerender
+  const inner = t.context.stub(() => {
+    // Ensure we re-render when it updates:
+    useContext(FormContext);
+  });
+  const Component = React.memo(inner);
+
+  const onChange = t.context.stub();
+  const onError = t.context.stub();
+  const onSubmit = t.context.stub();
+  const value = {};
+
+  const { rerender } = render(
+    <Form value={value}
+      errors={[]}
+      onChange={onChange}
+      onError={onError}
+      onSubmit={onSubmit}
+    >
+      <Component />
+    </Form>
+  );
+
+  t.is(inner.calls.length, 1);
+  t.is(onChange.calls.length, 0);
+  t.is(onSubmit.calls.length, 0);
+  t.is(onError.calls.length, 0);
+
+  const theTest = (errors, renderCount) => {
+    rerender(
+      <Form value={value}
+        errors={(errors: any)}
+        onChange={onChange}
+        onError={onError}
+        onSubmit={onSubmit}
+      >
+        <Component />
+      </Form>
+    );
+
+    t.is(inner.calls.length, renderCount, "errors: " + typeof errors === "undefined" ? "undefined" : JSON.stringify(errors));
+    t.is(onChange.calls.length, 0);
+    t.is(onSubmit.calls.length, 0);
+    t.is(onError.calls.length, 0);
+
+    rerender(
+      <Form value={value}
+        errors={(errors: any)}
+        onChange={onChange}
+        onError={onError}
+        onSubmit={onSubmit}
+      >
+        <Component />
+      </Form>
+    );
+
+    t.is(inner.calls.length, renderCount, "second time, errors: " + typeof errors === "undefined" ? "undefined" : JSON.stringify(errors));
+    t.is(onChange.calls.length, 0);
+    t.is(onSubmit.calls.length, 0);
+    t.is(onError.calls.length, 0);
+  };
+
+  theTest([], 1);
+  theTest([{ error: "A", field: "foo" }], 2);
+  theTest([{ error: "A", field: "foo" }, { error: "A", field: "bar" }], 3);
+  theTest([{ error: "B", field: "foo" }, { error: "A", field: "bar" }], 4);
+  theTest([{ error: "A", field: "bar" }, { error: "B", field: "foo" }], 4);
+  theTest(null, 5);
+  theTest(undefined, 5);
+  theTest([], 6);
 });
