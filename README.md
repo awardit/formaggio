@@ -22,8 +22,8 @@ npm i @crossroads-loyalty-solutions/formaggio
 ```javascript
 import {
   Form,
+  required,
   useFormField,
-  required
 } from "@crossroads-loyalty-solutions/formaggio";
 
 const TextInput = ({ name }) => {
@@ -45,9 +45,9 @@ const MyForm = () => {
     <Form
       noValidate
       name="my-form"
+      value={data}
       onChange={setData}
       onSubmit={console.log}
-      value={data}
     >
       <TextInput name="name" />
 
