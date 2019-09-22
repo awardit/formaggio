@@ -42,20 +42,13 @@
     "@babel/preset-env": "7.5.5",
     "@babel/preset-react": "7.0.0",
     "@babel/register": "^7.6.0",
+    "@crossroads-loyalty-solutions/eslint-config-xo": "^0.1.1",
     "@testing-library/react": "9.1.4",
     "ava": "2.2.0",
-    "babel-eslint": "10.0.2",
     "cross-env": "5.2.0",
-    "eslint-config-xo-flow": "0.1.0",
-    "eslint-config-xo-react": "0.20.0",
-    "eslint-plugin-flowtype": "3.12.1",
-    "eslint-plugin-prefer-arrow": "1.1.6",
-    "eslint-plugin-react": "7.14.2",
-    "eslint-plugin-react-hooks": "1.6.1",
     "flow-bin": "0.102.0",
     "jsdom": "^15.1.1",
     "jsdom-global": "3.0.2",
-    "jslint": "0.12.1",
     "ninos": "3.0.0",
     "nodemon": "^1.19.2",
     "npm-run-all": "4.1.5",
@@ -121,20 +114,13 @@
       "browser"
     ],
     "extends": [
-      "xo-flow",
-      "xo-react"
+      "@crossroads-loyalty-solutions/eslint-config-xo"
     ],
     "ignores": [
       "dist",
-      "**/rollup.config.js"
+      "rollup.config.js"
     ],
     "overrides": [
-      {
-        "files": "src/flowstub.js",
-        "rules": {
-          "import/no-useless-path-segments": "off"
-        }
-      },
       {
         "files": "test/*.js",
         "rules": {
@@ -143,7 +129,6 @@
           "flowtype/require-return-type": "off",
           "flowtype/no-unused-expressions": "off",
           "no-unused-expressions": "off",
-          "quote-props": "off",
           "max-len": [
             "warn",
             140,
@@ -153,139 +138,6 @@
           ]
         }
       }
-    ],
-    "plugins": [
-      "prefer-arrow"
-    ],
-    "rules": {
-      "brace-style": [
-        "error",
-        "stroustrup"
-      ],
-      "comma-dangle": [
-        "error",
-        {
-          "arrays": "only-multiline",
-          "objects": "only-multiline",
-          "imports": "only-multiline",
-          "exports": "only-multiline",
-          "functions": "never"
-        }
-      ],
-      "flowtype/array-style-complex-type": [
-        "error",
-        "verbose"
-      ],
-      "flowtype/array-style-simple-type": [
-        "error",
-        "verbose"
-      ],
-      "flowtype/delimiter-dangle": [
-        "error",
-        "only-multiline"
-      ],
-      "flowtype/newline-after-flow-annotation": [
-        "error",
-        "always"
-      ],
-      "flowtype/require-types-at-top": "warn",
-      "flowtype/require-valid-file-annotation": [
-        "error",
-        "always",
-        {
-          "annotationStyle": "block"
-        }
-      ],
-      "flowtype/require-return-type": [
-        "error",
-        "always",
-        {
-          "annotateUndefined": "always"
-        }
-      ],
-      "flowtype/type-import-style": [
-        "error",
-        "declaration"
-      ],
-      "func-style": [
-        "error",
-        "expression"
-      ],
-      "import/no-unassigned-import": [
-        "error",
-        {
-          "allow": [
-            "**/*.css",
-            "**/*.scss"
-          ]
-        }
-      ],
-      "import/no-unresolved": "off",
-      "import/order": "off",
-      "indent": [
-        "error",
-        2,
-        {
-          "SwitchCase": 0
-        }
-      ],
-      "lines-between-class-members": [
-        "error",
-        "always",
-        {
-          "exceptAfterSingleLine": true
-        }
-      ],
-      "max-len": [
-        "error",
-        {
-          "code": 100,
-          "comments": 80
-        }
-      ],
-      "no-case-declarations": "off",
-      "no-unused-vars": [
-        "error",
-        {
-          "varsIgnorePattern": "^React$"
-        }
-      ],
-      "object-curly-spacing": [
-        "error",
-        "always"
-      ],
-      "prefer-arrow/prefer-arrow-functions": [
-        "error",
-        {
-          "disallowPrototype": false,
-          "singleReturnOnly": false,
-          "classPropertiesAllowed": true
-        }
-      ],
-      "quotes": [
-        "error",
-        "double",
-        {
-          "allowTemplateLiterals": true
-        }
-      ],
-      "react/jsx-tag-spacing": [
-        "error",
-        {
-          "closingSlash": "never",
-          "beforeSelfClosing": "always",
-          "afterOpening": "never",
-          "beforeClosing": "never"
-        }
-      ],
-      "unicorn/catch-error-name": [
-        "error",
-        {
-          "name": "e"
-        }
-      ],
-      "valid-jsdoc": "off"
-    },
-    "space": 2
+    ]
   }
 }
