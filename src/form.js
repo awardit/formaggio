@@ -143,7 +143,6 @@ export function Form(props: FormProps): Node {
   return (
     <form
       {...formProps}
-      noValidate
       onSubmit={handleSubmit}
     >
       <FormContext.Provider value={state}>

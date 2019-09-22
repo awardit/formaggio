@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changes
+* `Form` no longer automatically adds `noValidate` on its `<form />` element.
 
 ## [0.1.0] - 2019-09-20
 ### Added
