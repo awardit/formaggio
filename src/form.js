@@ -28,7 +28,7 @@ export type FormProps = ElementProps<"form"> & {
   errors?: Array<ValidationError>,
   name?: string,
   onChange: (data: FormData) => mixed,
-  onError: (e: Event, errors: Array<ValidationError>, data: FormData) => mixed,
+  onError?: (e: Event, errors: Array<ValidationError>, data: FormData) => mixed,
   onSubmit: (e: Event, data: FormData) => mixed,
   value: FormData,
 };
@@ -132,7 +132,9 @@ export function Form(props: FormProps): Node {
       e.preventDefault();
       e.stopPropagation();
 
-      onError(e, errors, value);
+      if (onError) {
+        onError(e, errors, value);
+      }
 
       return false;
     }
