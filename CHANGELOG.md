@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `Form` no longer automatically adds `noValidate` on its `<form />` element.
 * `Form` `onError` prop is now optional.
 * Added a minimum version reqiurement on `react` dependency.
+### Removed
+* **BREAKING CHANGE:** Removed `POSTAL_CODE`, `EMAIL` and `PHONE` exports.
 
 ## [0.1.0] - 2019-09-20
 ### Added

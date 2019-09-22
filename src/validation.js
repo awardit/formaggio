@@ -23,11 +23,11 @@ export const nestedRule = <T>(k: string, v: Validator<T>): Validator<T> =>
 export const conditional = <T>(c: (t: T) => boolean, v: Validator<T>): Validator<T> =>
   (t: T): Array<ValidationError> => c(t) ? v(t) : [];
 
-export const POSTAL_CODE = /^\d{3}\s?\d{2}$/;
+const POSTAL_CODE = /^\d{3}\s?\d{2}$/;
 /* eslint-disable max-len */
-export const EMAIL = /^[!#$%&'*+/=?^_`{|}~\-a-z0-9]+(?:\.[!#$%&'*+/=?^_`{|}~\-a-z0-9]+)*@(?:[a-z0-9]+(?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]([a-z0-9-]*[a-z0-9])*$/i;
+const EMAIL = /^[!#$%&'*+/=?^_`{|}~\-a-z0-9]+(?:\.[!#$%&'*+/=?^_`{|}~\-a-z0-9]+)*@(?:[a-z0-9]+(?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]([a-z0-9-]*[a-z0-9])*$/i;
 /* eslint-enable max-len */
-export const PHONE = /^(?=.*\d{2,})[-\s+()0-9]+$/;
+const PHONE = /^(?=.*\d{2,})[-\s+()0-9]+$/;
 
 export const isRequired = (f: string): Validator<FormData> =>
   (t: FormData): Array<ValidationError> =>
