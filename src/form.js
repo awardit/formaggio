@@ -59,7 +59,7 @@ export const FormContext: Context<?FormContextData> = createContext();
  *       original value, the component instance has to be re-rendered with
  *       a new key to consider it being a new non-dirty instance.
  */
-export function useFormField(name: string, def: FormDataValue = ""): FormFieldData {
+export const useFormField = (name: string, def: FormDataValue = ""): FormFieldData => {
   const formData = useContext(FormContext);
 
   if (!formData) {
@@ -90,9 +90,9 @@ export function useFormField(name: string, def: FormDataValue = ""): FormFieldDa
       value,
     }
   };
-}
+};
 
-export function Form(props: FormProps): Node {
+export const Form = (props: FormProps): Node => {
   const {
     children,
     errors,
@@ -152,4 +152,4 @@ export function Form(props: FormProps): Node {
       </FormContext.Provider>
     </form>
   );
-}
+};

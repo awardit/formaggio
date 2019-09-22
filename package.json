@@ -49,6 +49,7 @@
     "eslint-config-xo-flow": "0.1.0",
     "eslint-config-xo-react": "0.20.0",
     "eslint-plugin-flowtype": "3.12.1",
+    "eslint-plugin-prefer-arrow": "1.1.6",
     "eslint-plugin-react": "7.14.2",
     "eslint-plugin-react-hooks": "1.6.1",
     "flow-bin": "0.102.0",
@@ -115,6 +116,10 @@
     "powerAssert": true
   },
   "xo": {
+    "envs": [
+      "node",
+      "browser"
+    ],
     "extends": [
       "xo-flow",
       "xo-react"
@@ -122,10 +127,6 @@
     "ignores": [
       "dist",
       "**/rollup.config.js"
-    ],
-    "envs": [
-      "node",
-      "browser"
     ],
     "overrides": [
       {
@@ -152,6 +153,9 @@
           ]
         }
       }
+    ],
+    "plugins": [
+      "prefer-arrow"
     ],
     "rules": {
       "brace-style": [
@@ -203,6 +207,10 @@
         "error",
         "declaration"
       ],
+      "func-style": [
+        "error",
+        "expression"
+      ],
       "import/no-unassigned-import": [
         "error",
         {
@@ -245,6 +253,14 @@
       "object-curly-spacing": [
         "error",
         "always"
+      ],
+      "prefer-arrow/prefer-arrow-functions": [
+        "error",
+        {
+          "disallowPrototype": false,
+          "singleReturnOnly": false,
+          "classPropertiesAllowed": true
+        }
       ],
       "quotes": [
         "error",

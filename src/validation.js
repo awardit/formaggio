@@ -7,24 +7,21 @@ export type ValidationError = {
   field: string,
 };
 
-export type Validator<S> = (s: S) => Array<ValidationError>;
+export type Validator<T> = (t: T) => Array<ValidationError>;
 
-export function rules<S>(vs: Array<Validator<S>>): Validator<S> {
-  return (s: S): Array<ValidationError> =>
-    [].concat(...vs.map((i: Validator<S>): Array<ValidationError> => i(s)));
-}
+export const rules = <T>(vs: Array<Validator<T>>): Validator<T> =>
+  (t: T): Array<ValidationError> =>
+    [].concat(...vs.map((i: Validator<T>): Array<ValidationError> => i(t)));
 
-export function nestedRule<S>(k: string, v: Validator<S>): Validator<S> {
-  return (s: S): Array<ValidationError> => typeof s === "object" && s ?
-    v(s[k]).map(
+export const nestedRule = <T>(k: string, v: Validator<T>): Validator<T> =>
+  (t: T): Array<ValidationError> => typeof t === "object" && t ?
+    v(t[k]).map(
       ({ error, field }: ValidationError): ValidationError =>
         ({ error, field: k + "." + field })
     ) : [];
-}
 
-export function conditional<S>(c: (s: S) => boolean, v: Validator<S>): Validator<S> {
-  return (s: S): Array<ValidationError> => c(s) ? v(s) : [];
-}
+export const conditional = <T>(c: (t: T) => boolean, v: Validator<T>): Validator<T> =>
+  (t: T): Array<ValidationError> => c(t) ? v(t) : [];
 
 export const POSTAL_CODE = /^\d{3}\s?\d{2}$/;
 /* eslint-disable max-len */
@@ -32,61 +29,51 @@ export const EMAIL = /^[!#$%&'*+/=?^_`{|}~\-a-z0-9]+(?:\.[!#$%&'*+/=?^_`{|}~\-a-
 /* eslint-enable max-len */
 export const PHONE = /^(?=.*\d{2,})[-\s+()0-9]+$/;
 
-export function isRequired(f: string): Validator<FormData> {
-  return (s: FormData): Array<ValidationError> =>
-    typeof s === "object" && s && (s[f] || s[f] === 0) ? [] : [{ error: "REQUIRED", field: f }];
-}
+export const isRequired = (f: string): Validator<FormData> =>
+  (t: FormData): Array<ValidationError> =>
+    typeof t === "object" && t && (t[f] || t[f] === 0) ? [] : [{ error: "REQUIRED", field: f }];
 
-export function lengthGt(f: string, l: number): Validator<FormData> {
-  return (s: FormData): Array<ValidationError> =>
-    typeof s[f] === "string" && s[f].length > l ?
+export const lengthGt = (f: string, l: number): Validator<FormData> =>
+  (t: FormData): Array<ValidationError> =>
+    typeof t[f] === "string" && t[f].length > l ?
       [] :
       [{ error: "LENGTH_GT", field: f, lengthGt: l }];
-}
 
-export function lengthLt(f: string, l: number): Validator<FormData> {
-  return (s: FormData): Array<ValidationError> =>
-    typeof s[f] === "string" && s[f].length < l ?
+export const lengthLt = (f: string, l: number): Validator<FormData> =>
+  (t: FormData): Array<ValidationError> =>
+    typeof t[f] === "string" && t[f].length < l ?
       [] :
       [{ error: "LENGTH_LT", field: f, lengthLt: l }];
-}
 
-export function isTruthy(f: string): Validator<FormData> {
-  return (s: FormData): Array<ValidationError> => s[f] ? [] : [{ error: "TRUTHY", field: f }];
-}
+export const isTruthy = (f: string): Validator<FormData> =>
+  (t: FormData): Array<ValidationError> =>
+    t[f] ? [] : [{ error: "TRUTHY", field: f }];
 
-export function match(f1: string, f2: string): Validator<FormData> {
-  return (s: FormData): Array<ValidationError> =>
-    s[f1] === s[f2] ? [] : [{ error: "MATCH", field: f2, match: f2 }];
-}
+export const match = (f1: string, f2: string): Validator<FormData> =>
+  (t: FormData): Array<ValidationError> =>
+    t[f1] === t[f2] ? [] : [{ error: "MATCH", field: f2, match: f2 }];
 
-export function isPhone(f: string): Validator<FormData> {
-  return (s: FormData): Array<ValidationError> =>
-    typeof s[f] === "string" && PHONE.test(s[f]) ? [] : [{ error: "PHONE", field: f }];
-}
+export const isPhone = (f: string): Validator<FormData> =>
+  (t: FormData): Array<ValidationError> =>
+    typeof t[f] === "string" && PHONE.test(t[f]) ? [] : [{ error: "PHONE", field: f }];
 
-export function isPostalCode(f: string): Validator<FormData> {
-  return (s: FormData): Array<ValidationError> => {
-    const value = parseInt(String(s[f]).replace(/\s/g, ""), 10);
+export const isPostalCode = (f: string): Validator<FormData> =>
+  (t: FormData): Array<ValidationError> => {
+    const value = parseInt(String(t[f]).replace(/\s/g, ""), 10);
 
-    return (POSTAL_CODE.test(String(s[f])) && !isNaN(value) && value > 10000) ?
+    return (POSTAL_CODE.test(String(t[f])) && !isNaN(value) && value > 10000) ?
       [] :
       [{ error: "POSTCODE", field: f }];
   };
-}
 
-export function isEmail(f: string): Validator<FormData> {
-  return (s: FormData): Array<ValidationError> =>
-    typeof s[f] === "string" && EMAIL.test(s[f]) ? [] : [{ error: "EMAIL", field: f }];
-}
+export const isEmail = (f: string): Validator<FormData> =>
+  (t: FormData): Array<ValidationError> =>
+    typeof t[f] === "string" && EMAIL.test(t[f]) ? [] : [{ error: "EMAIL", field: f }];
 
-function numeric(x: mixed): boolean {
-  return !isNaN((x: any) - parseFloat(x));
-}
+const numeric = (x: mixed): boolean =>
+  !isNaN((x: any) - parseFloat(x));
 
-export function isNumeric(f: string): Validator<FormData> {
-  return (s: FormData): Array<ValidationError> => numeric(s[f]) ?
+export const isNumeric = (f: string): Validator<FormData> =>
+  (t: FormData): Array<ValidationError> => numeric(t[f]) ?
     [] :
     [{ error: "NUMERIC", field: f }];
-}
-
