@@ -5,7 +5,7 @@ import ninos from "ninos";
 import {
   rules, nestedRule, conditional,
   isNumeric, isRequired, lengthGt, lengthLt, isTruthy, match,
-  isPhone, isPostalCode, isEmail
+  isPhone, isPostalCode, isEmail,
 } from "../src";
 
 const test = ninos(ava);
@@ -28,17 +28,17 @@ test("rules with no errors", t => {
 
 test("rules with errors", t => {
   const a = t.context.stub(() => [
-    { error: "a-error", field: "thefield" }
+    { error: "a-error", field: "thefield" },
   ]);
   const b = t.context.stub(() => [
     { error: "b-error-1", field: "a-field" },
-    { error: "b-error-2", field: "bar" }
+    { error: "b-error-2", field: "bar" },
   ]);
 
   t.deepEqual(rules([a, b])("foo"), [
     { error: "a-error", field: "thefield" },
     { error: "b-error-1", field: "a-field" },
-    { error: "b-error-2", field: "bar" }
+    { error: "b-error-2", field: "bar" },
   ]);
   t.is(a.calls.length, 1);
   t.deepEqual(a.calls[0].arguments, ["foo"]);
@@ -57,11 +57,11 @@ test("nestedRule with primitive", t => {
 
 test("nestedRule with empty object", t => {
   const a = t.context.stub(() => [
-    { error: "foo", field: "thefield" }
+    { error: "foo", field: "thefield" },
   ]);
 
   t.deepEqual(nestedRule("foo", a)({}), [
-    { error: "foo", field: "foo.thefield" }
+    { error: "foo", field: "foo.thefield" },
   ]);
 
   t.is(a.calls.length, 1);

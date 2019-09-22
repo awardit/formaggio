@@ -14,12 +14,12 @@ module.exports = {
           chrome: 50,
         },
         exclude: [
-          "transform-typeof-symbol"
-        ]
-      }
+          "transform-typeof-symbol",
+        ],
+      },
     ],
     [
-      "@babel/preset-react"
+      "@babel/preset-react",
     ],
   ],
   plugins: [

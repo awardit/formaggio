@@ -88,7 +88,7 @@ export const useFormField = (name: string, def: FormDataValue = ""): FormFieldDa
       name,
       onChange,
       value,
-    }
+    },
   };
 };
 
