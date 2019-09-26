@@ -25,7 +25,7 @@ export type FormContextData = {
   errors: Array<ValidationError>,
   idPrefix: string,
   update: UpdateFn,
-  submitted: boolean
+  submitted: boolean,
 };
 
 export type FormProps = ElementProps<"form"> & {

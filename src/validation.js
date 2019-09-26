@@ -24,9 +24,7 @@ export const conditional = <T>(c: (t: T) => boolean, v: Validator<T>): Validator
   (t: T): Array<ValidationError> => c(t) ? v(t) : [];
 
 const POSTAL_CODE = /^\d{3}\s?\d{2}$/;
-/* eslint-disable max-len */
 const EMAIL = /^[!#$%&'*+/=?^_`{|}~\-a-z0-9]+(?:\.[!#$%&'*+/=?^_`{|}~\-a-z0-9]+)*@(?:[a-z0-9]+(?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]([a-z0-9-]*[a-z0-9])*$/i;
-/* eslint-enable max-len */
 const PHONE = /^(?=.*\d{2,})[-\s+()0-9]+$/;
 
 export const isRequired = (f: string): Validator<FormData> =>
