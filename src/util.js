@@ -27,7 +27,7 @@ export const errorsEqual = (a: ?Array<ValidationError>, b: ?Array<ValidationErro
  * Indexing operator.
  */
 const _idx = (o: mixed, i: string): mixed =>
-  typeof o === "object" && o ? o[i] : null;
+  typeof o === "object" && o != null ? o[i] : null;
 
 /**
  * Indexes deeply into the supplied object using a dot-notation string and

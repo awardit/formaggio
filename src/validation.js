@@ -14,7 +14,7 @@ export const rules = <T>(vs: Array<Validator<T>>): Validator<T> =>
     [].concat(...vs.map((i: Validator<T>): Array<ValidationError> => i(t)));
 
 export const nestedRule = <T>(k: string, v: Validator<T>): Validator<T> =>
-  (t: T): Array<ValidationError> => typeof t === "object" && t ?
+  (t: T): Array<ValidationError> => typeof t === "object" && t != null ?
     v(t[k]).map(
       ({ error, field }: ValidationError): ValidationError =>
         ({ error, field: k + "." + field })

@@ -5,6 +5,12 @@
 [libs]
 
 [lints]
+sketchy-null=error
+sketchy-number=error
+unnecessary-optional-chain=error
+deprecated-utility=error
+deprecated-type=error
+non-array-spread=error
 
 [options]
 
