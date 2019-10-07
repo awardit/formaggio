@@ -32,8 +32,12 @@ export type FormProps = ElementProps<"form"> & {
   errors?: Array<ValidationError>,
   name?: string,
   onChange: (data: FormData) => mixed,
-  onError?: (e: Event, errors: Array<ValidationError>, data: FormData) => mixed,
-  onSubmit: (e: Event, data: FormData) => mixed,
+  onError?: (
+    e: SyntheticEvent<HTMLFormElement>,
+    errors: Array<ValidationError>,
+    data: FormData
+  ) => mixed,
+  onSubmit: (e: SyntheticEvent<HTMLFormElement>, data: FormData) => mixed,
   value: FormData,
 };
 
@@ -137,7 +141,7 @@ export const Form = (props: FormProps): Node => {
     [name, stateErrors, onChange, value, submitted]
   );
 
-  const handleSubmit = useCallback((e: Event): ?boolean => {
+  const handleSubmit = useCallback((e: SyntheticEvent<HTMLFormElement>): ?boolean => {
     setSubmitted(true);
 
     if (errors && errors.length > 0) {
