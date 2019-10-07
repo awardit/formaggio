@@ -22,7 +22,9 @@ npm i @crossroads-loyalty-solutions/formaggio
 ```javascript
 import {
   Form,
+  isEmail,
   required,
+  rules,
   useFormField,
 } from "@crossroads-loyalty-solutions/formaggio";
 
@@ -35,7 +37,12 @@ const TextInput = ({ name }) => {
   return <input type="text" className={className} {...inputProps} />;
 };
 
-const validateMyForm = required("name");
+const validateMyForm = rules(
+  required("name"),
+  required("email"),
+  isEmail("email")
+);
+
 
 const MyForm = () => {
   const [data, setData] = useState({});
@@ -50,6 +57,7 @@ const MyForm = () => {
       onSubmit={console.log}
     >
       <TextInput name="name" />
+      <TextInput name="email" />
 
       <button type="submit">Submit</button>
     </Form>
