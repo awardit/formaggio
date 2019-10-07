@@ -1,4 +1,5 @@
-# Formaggio
+![Formaggio Logo](doc/logo_primary.svg?raw=true&sanitize=true)
+<p align="center">The cheesy form library 🧀</p>
 
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/@crossroads-loyalty-solutions/formaggio.svg)](https://bundlephobia.com/result?p=@crossroads-loyalty-solutions/formaggio)
 [![Dependencies](https://img.shields.io/david/crossroads-loyalty-solutions/formaggio.svg)](https://www.npmjs.com/package/@crossroads-loyalty-solutions/formaggio)
@@ -6,8 +7,6 @@
 [![Codecov](https://img.shields.io/codecov/c/gh/crossroads-loyalty-solutions/formaggio)](https://codecov.io/gh/crossroads-loyalty-solutions/formaggio)
 ![License](https://img.shields.io/npm/l/@crossroads-loyalty-solutions/formaggio)
 [![npm](https://img.shields.io/npm/v/@crossroads-loyalty-solutions/formaggio)](https://www.npmjs.com/package/@crossroads-loyalty-solutions/formaggio)
-
-The cheesy form library 🧀
 
 ## Installation
 
