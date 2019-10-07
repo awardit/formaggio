@@ -42,7 +42,6 @@ const validateMyForm = rules(
   isEmail("email")
 );
 
-
 const MyForm = () => {
   const [data, setData] = useState({});
   const errors = validateMyForm(data);
