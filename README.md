@@ -82,11 +82,11 @@ Properties:
    in nested uses of `useFormField`.
  * `onChange: (FormData) => void`: Callback for when the form data
    changes, these changes are performed immutably.
- * `onError?: (SyntheticEvent<HTMLFormElement>, Array<ValidationError>, FormData) => void`: Callback
-   fired instead of `onSubmit` if there is an error in the form when the
-   user tries to submit the form.
- * `onSubmit: (SyntheticEvent<HTMLFormElement>, FormData) => void`: Callback fired with the current
-   form data when the user submits the form.
+ * `onError?: (SyntheticEvent<HTMLFormElement>, Array<ValidationError>, FormData) => void`:
+   Callback fired instead of `onSubmit` if there is an error in the form when
+   the user tries to submit the form.
+ * `onSubmit: (SyntheticEvent<HTMLFormElement>, FormData) => void`: Callback
+   fired with the current form data when the user submits the form.
  * `value: FormData`: The data for the form.
 
 Any properties not listed above will be propagated to the `<form />` element.
