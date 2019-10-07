@@ -1,4 +1,4 @@
-![Formaggio Logo](doc/logo_primary.svg?raw=true&sanitize=true)
+![Formaggio Logo](https://raw.githubusercontent.com/crossroads-loyalty-solutions/formaggio/master/doc/logo_primary.svg?raw=true&sanitize=true)
 <p align="center">The cheesy form library 🧀</p>
 
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/@crossroads-loyalty-solutions/formaggio.svg)](https://bundlephobia.com/result?p=@crossroads-loyalty-solutions/formaggio)
