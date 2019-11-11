@@ -6,7 +6,8 @@
 [![Build Status](https://travis-ci.org/crossroads-loyalty-solutions/formaggio.svg?branch=master)](https://travis-ci.org/crossroads-loyalty-solutions/formaggio)
 [![Codecov](https://img.shields.io/codecov/c/gh/crossroads-loyalty-solutions/formaggio)](https://codecov.io/gh/crossroads-loyalty-solutions/formaggio)
 ![License](https://img.shields.io/npm/l/@crossroads-loyalty-solutions/formaggio)
-[![npm](https://img.shields.io/npm/v/@crossroads-loyalty-solutions/formaggio)](https://www.npmjs.com/package/@crossroads-loyalty-solutions/formaggio) [![Greenkeeper badge](https://badges.greenkeeper.io/crossroads-loyalty-solutions/formaggio.svg)](https://greenkeeper.io/)
+[![npm](https://img.shields.io/npm/v/@crossroads-loyalty-solutions/formaggio)](https://www.npmjs.com/package/@crossroads-loyalty-solutions/formaggio)
+[![Greenkeeper badge](https://badges.greenkeeper.io/crossroads-loyalty-solutions/formaggio.svg)](https://greenkeeper.io/)
 
 ## Installation
 
