@@ -37,11 +37,11 @@ const TextInput = ({ name }) => {
   return <input type="text" className={className} {...inputProps} />;
 };
 
-const validateMyForm = rules(
+const validateMyForm = rules([
   required("name"),
   required("email"),
   isEmail("email")
-);
+]);
 
 const MyForm = () => {
   const [data, setData] = useState({});
