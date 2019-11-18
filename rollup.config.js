@@ -4,21 +4,22 @@ export default {
   input: "src/index.js",
   output: [
     {
-      file: "dist/index.esm.js",
-      sourcemap: true,
+      dir: "dist",
+      entryFileNames: "[name].esm.js",
       format: "esm",
+      sourcemap: true,
     },
     {
-      file: "dist/index.js",
-      sourcemap: true,
+      dir: "dist",
       format: "cjs",
+      sourcemap: true,
     },
   ],
   plugins: [
     babelPlugin(require("./build/babel")),
   ],
+  preserveModules: true,
   external: [
-    "diskho",
     "react",
   ],
 };
