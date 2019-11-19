@@ -4,13 +4,12 @@ export default {
   input: "src/index.js",
   output: [
     {
-      dir: "dist",
-      entryFileNames: "[name].esm.js",
+      dir: "dist/esm",
       format: "esm",
       sourcemap: true,
     },
     {
-      dir: "dist",
+      dir: "dist/cjs",
       format: "cjs",
       sourcemap: true,
     },

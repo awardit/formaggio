@@ -15,13 +15,13 @@
     "type": "git",
     "url": "git@github.com:crossroads-loyalty-solutions/formaggio.git"
   },
-  "module": "dist/index.esm.js",
-  "main": "dist/index.esm.js",
+  "module": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
   "sideEffects": false,
   "scripts": {
     "build": "npm-run-all build:*",
     "build:rollup": "rollup -c rollup.config.js",
-    "build:flow": "cp build/flowstub.js dist/index.esm.js.flow && cp build/flowstub.js dist/index.js.flow",
+    "build:flow": "cp build/stub/flow.js dist/esm/index.js.flow && cp build/stub/flow.js dist/cjs/index.js.flow",
     "coverage": "nyc --reporter=html ava --verbose",
     "clean": "rm -rf dist",
     "distclean": "rm -rf package-lock.json node_modules dist",
@@ -64,49 +64,6 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "ava": {
-    "babel": {
-      "testOptions": {
-        "presets": [
-          [
-            "@babel/preset-react"
-          ],
-          [
-            "@babel/preset-env",
-            {
-              "loose": true,
-              "shippedProposals": true,
-              "targets": {
-                "node": "current",
-                "firefox": "50",
-                "ie": "11"
-              },
-              "exclude": [
-                "transform-typeof-symbol"
-              ]
-            }
-          ]
-        ],
-        "plugins": [
-          [
-            "@babel/plugin-transform-flow-strip-types"
-          ]
-        ]
-      }
-    },
-    "files": [
-      "**/*.test.js"
-    ],
-    "sources": [
-      "src/**/*.js",
-      "**/src/**/*.js"
-    ],
-    "require": [
-      "./test/_register",
-      "jsdom-global/register"
-    ],
-    "powerAssert": true
   },
   "xo": {
     "envs": [

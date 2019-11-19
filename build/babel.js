@@ -1,6 +1,10 @@
 /* @flow */
 
 module.exports = {
+  ignore: [
+    "**/*.test.js",
+    "node_modules/**/*.js",
+  ],
   presets: [
     [
       "@babel/preset-env",
