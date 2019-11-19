@@ -51,12 +51,12 @@ export type FormFieldData = {
 /**
  * Properties compatible with an <input /> element.
  */
-export type InputProps = {
+export type InputProps = {|
   id: string,
   name: string,
   onChange: (e: SyntheticInputEvent<HTMLInputElement>) => void,
   value: FormDataValue,
-};
+|};
 
 export const FormContext: Context<?FormContextData> = createContext();
 
