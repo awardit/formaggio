@@ -213,7 +213,8 @@ test("Should not rerender when errors are not actually updated", t => {
   const value = {};
 
   const { rerender } = render(
-    <Form value={value}
+    <Form
+      value={value}
       errors={[]}
       onChange={onChange}
       onError={onError}
@@ -230,7 +231,8 @@ test("Should not rerender when errors are not actually updated", t => {
 
   const theTest = (errors, renderCount) => {
     rerender(
-      <Form value={value}
+      <Form
+        value={value}
         errors={(errors: any)}
         onChange={onChange}
         onError={onError}
@@ -246,7 +248,8 @@ test("Should not rerender when errors are not actually updated", t => {
     t.is(onError.calls.length, 0);
 
     rerender(
-      <Form value={value}
+      <Form
+        value={value}
         errors={(errors: any)}
         onChange={onChange}
         onError={onError}
