@@ -35,6 +35,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "@awardit/eslint-config-xo": "0.3.0",
     "@babel/core": "7.8.4",
     "@babel/plugin-proposal-nullish-coalescing-operator": "7.8.3",
     "@babel/plugin-syntax-flow": "7.8.3",
@@ -42,7 +43,6 @@
     "@babel/preset-env": "7.8.4",
     "@babel/preset-react": "7.8.3",
     "@babel/register": "7.8.3",
-    "@awardit/eslint-config-xo": "0.3.0",
     "@testing-library/react": "9.4.0",
     "ava": "2.4.0",
     "cross-env": "7.0.0",
