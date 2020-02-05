@@ -1,18 +1,18 @@
-![Formaggio Logo](https://raw.githubusercontent.com/crossroads-loyalty-solutions/formaggio/master/doc/logo_primary.svg?raw=true&sanitize=true)
+![Formaggio Logo](https://raw.githubusercontent.com/awardit/formaggio/master/doc/logo_primary.svg?raw=true&sanitize=true)
 <p align="center">The cheesy form library 🧀</p>
 
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/@crossroads-loyalty-solutions/formaggio.svg)](https://bundlephobia.com/result?p=@crossroads-loyalty-solutions/formaggio)
-[![Dependencies](https://img.shields.io/david/crossroads-loyalty-solutions/formaggio.svg)](https://www.npmjs.com/package/@crossroads-loyalty-solutions/formaggio)
-[![Build Status](https://travis-ci.org/crossroads-loyalty-solutions/formaggio.svg?branch=master)](https://travis-ci.org/crossroads-loyalty-solutions/formaggio)
-[![Codecov](https://img.shields.io/codecov/c/gh/crossroads-loyalty-solutions/formaggio)](https://codecov.io/gh/crossroads-loyalty-solutions/formaggio)
-![License](https://img.shields.io/npm/l/@crossroads-loyalty-solutions/formaggio)
-[![npm](https://img.shields.io/npm/v/@crossroads-loyalty-solutions/formaggio)](https://www.npmjs.com/package/@crossroads-loyalty-solutions/formaggio)
-[![Greenkeeper badge](https://badges.greenkeeper.io/crossroads-loyalty-solutions/formaggio.svg)](https://greenkeeper.io/)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/@awardit/formaggio.svg)](https://bundlephobia.com/result?p=@awardit/formaggio)
+[![Dependencies](https://img.shields.io/david/awardit/formaggio.svg)](https://www.npmjs.com/package/@awardit/formaggio)
+[![Build Status](https://travis-ci.org/awardit/formaggio.svg?branch=master)](https://travis-ci.org/awardit/formaggio)
+[![Codecov](https://img.shields.io/codecov/c/gh/awardit/formaggio)](https://codecov.io/gh/awardit/formaggio)
+![License](https://img.shields.io/npm/l/@awardit/formaggio)
+[![npm](https://img.shields.io/npm/v/@awardit/formaggio)](https://www.npmjs.com/package/@awardit/formaggio)
+[![Greenkeeper badge](https://badges.greenkeeper.io/awardit/formaggio.svg)](https://greenkeeper.io/)
 
 ## Installation
 
 ```bash
-npm i @crossroads-loyalty-solutions/formaggio
+npm i @awardit/formaggio
 ```
 
 ## Forms
@@ -26,7 +26,7 @@ import {
   required,
   rules,
   useFormField,
-} from "@crossroads-loyalty-solutions/formaggio";
+} from "@awardit/formaggio";
 
 const TextInput = ({ name }) => {
   const { dirty, errors, submitted, inputProps } = useFormField(name);
@@ -116,7 +116,7 @@ import {
   lengthGt,
   required,
   rules,
-} from "@crossroads-loyalty-solutions/formaggio";
+} from "@awardit/formaggio";
 
 const validator = rules([
   isEmail("email"),
