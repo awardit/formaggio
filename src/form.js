@@ -114,14 +114,14 @@ export const Form = (props: FormProps): Node => {
 
   // If we have tried to submit the form
   const [submitted, setSubmitted] = useState(false);
-  const prevErrors = useRef(errors);
+  const previousErrors = useRef(errors);
 
   // Update errors if they are not equal
-  if (!errorsEqual(prevErrors.current, errors)) {
-    prevErrors.current = errors;
+  if (!errorsEqual(previousErrors.current, errors)) {
+    previousErrors.current = errors;
   }
 
-  const stateErrors = prevErrors.current;
+  const stateErrors = previousErrors.current;
 
   // Only change the form context when the data/errors change
   const state = useMemo(
@@ -141,21 +141,21 @@ export const Form = (props: FormProps): Node => {
     [name, stateErrors, onChange, value, submitted]
   );
 
-  const handleSubmit = useCallback((e: SyntheticEvent<HTMLFormElement>): ?boolean => {
+  const handleSubmit = useCallback((event: SyntheticEvent<HTMLFormElement>): ?boolean => {
     setSubmitted(true);
 
     if (errors && errors.length > 0) {
-      e.preventDefault();
-      e.stopPropagation();
+      event.preventDefault();
+      event.stopPropagation();
 
       if (onError) {
-        onError(e, errors, value);
+        onError(event, errors, value);
       }
 
       return false;
     }
 
-    onSubmit(e, value);
+    onSubmit(event, value);
   }, [errors, onError, onSubmit, value]);
 
   return (

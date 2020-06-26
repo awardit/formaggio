@@ -24,8 +24,8 @@ export const conditional = <T>(c: (t: T) => boolean, v: Validator<T>): Validator
   (t: T): Array<ValidationError> => c(t) ? v(t) : [];
 
 const POSTAL_CODE = /^\d{3}\s?\d{2}$/;
-const EMAIL = /^[!#$%&'*+/=?^_`{|}~\-a-z0-9]+(?:\.[!#$%&'*+/=?^_`{|}~\-a-z0-9]+)*@(?:[a-z0-9]+(?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]([a-z0-9-]*[a-z0-9])*$/i;
-const PHONE = /^(?=.*\d{2,})[-\s+()0-9]+$/;
+const EMAIL = /^[!#$%&'*+/=?^`{|}~\-\w]+(?:\.[!#$%&'*+/=?^`{|}~\-\w]+)*@(?:[a-z\d]+(?:[a-z\d-]*[a-z\d])?\.)+[a-z\d]([a-z\d-]*[a-z\d])*$/i;
+const PHONE = /^(?=.*\d{2,})[-\s+()\d]+$/;
 
 export const isRequired = (f: string): Validator<FormData> =>
   (t: FormData): Array<ValidationError> =>
@@ -57,9 +57,9 @@ export const isPhone = (f: string): Validator<FormData> =>
 
 export const isPostalCode = (f: string): Validator<FormData> =>
   (t: FormData): Array<ValidationError> => {
-    const value = parseInt(String(t[f]).replace(/\s/g, ""), 10);
+    const value = Number.parseInt(String(t[f]).replace(/\s/g, ""), 10);
 
-    return (POSTAL_CODE.test(String(t[f])) && !isNaN(value) && value > 10000) ?
+    return (POSTAL_CODE.test(String(t[f])) && !Number.isNaN(value) && value > 10000) ?
       [] :
       [{ error: "POSTCODE", field: f }];
   };
@@ -69,7 +69,7 @@ export const isEmail = (f: string): Validator<FormData> =>
     typeof t[f] === "string" && EMAIL.test(t[f]) ? [] : [{ error: "EMAIL", field: f }];
 
 const numeric = (x: mixed): boolean =>
-  !isNaN((x: any) - parseFloat(x));
+  !Number.isNaN((x: any) - Number.parseFloat(x));
 
 export const isNumeric = (f: string): Validator<FormData> =>
   (t: FormData): Array<ValidationError> => numeric(t[f]) ?
