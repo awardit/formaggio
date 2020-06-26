@@ -1,4 +1,4 @@
-import babelPlugin from "rollup-plugin-babel";
+import babelPlugin from "@rollup/plugin-babel";
 
 export default {
   input: "src/index.js",
@@ -15,7 +15,10 @@ export default {
     },
   ],
   plugins: [
-    babelPlugin(require("./build/babel")),
+    babelPlugin({
+      ...require("./build/babel"),
+      babelHelpers: "bundled",
+    }),
   ],
   preserveModules: true,
   external: [
