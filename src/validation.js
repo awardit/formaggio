@@ -69,7 +69,7 @@ export const isEmail = (f: string): Validator<FormData> =>
     typeof t[f] === "string" && EMAIL.test(t[f]) ? [] : [{ error: "EMAIL", field: f }];
 
 const numeric = (x: mixed): boolean =>
-  !Number.isNaN((x: any) - Number.parseFloat(x));
+  !Number.isNaN((x: any) - Number.parseFloat((x: any)));
 
 export const isNumeric = (f: string): Validator<FormData> =>
   (t: FormData): Array<ValidationError> => numeric(t[f]) ?
